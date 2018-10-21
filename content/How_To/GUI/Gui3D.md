@@ -8,27 +8,27 @@ The Babylon.js 3D GUI library is an extension you can use to generate 3D interac
 
 The latest version can be found here: https://github.com/BabylonJS/Babylon.js/tree/master/dist/preview%20release/gui.
 
-And the source code is available on the main Babylon.js repo: https://github.com/BabylonJS/Babylon.js/tree/master/gui.
+And the source code is available on the main Babylon.js repo: https://github.com/BabylonJS/Babylon.js/tree/master/gui/src/3D.
 
 ## Introduction
-Babylon.GUI uses a meshes to create an interactive user interface which is fully integrated in your scene.
+Babylon.GUI uses meshes to create an interactive user interface, which is fully integrated in your scene.
 
 ## GUI3DManager
-To begin with 3D GUI, you need to instantiate a `GUI3DManager` which will be responsible for connecting all controls together:
+To begin with 3D GUI, you need to instantiate a `GUI3DManager` which will be responsible for connecting all the controls together:
 
 ```
 var manager = new BABYLON.GUI.GUI3DManager(scene);
 ```
 
-The manager only requires the scene to work on. Once instantiated, the manager will create an utility layer which is a specific child scene which will host all meshes used to render the controls. This way, your main scene won't get poluated by the utility meshes.
+The manager only requires the scene to work on. Once instantiated, the manager will create a utility layer which is a specific child scene that will host all the meshes used to render the controls. This way, your main scene won't get populated by the utility meshes.
 
 You can reach the utility layer with `manager.utilityLayer`.
 
-Once you have a manager, you can start adding controls with `manager.addControl(control)`. All controls will be added to the `manager.rootContainer` container.
+Once you have a manager, you can start adding controls with `manager.addControl(control)`. All controls will be added to the `manager.rootContainer`.
 
 Please also note that the following functions are available:
-- `containsControl()`: Gets a boolean indicating if the given control is in the root child list
-- `removeControl()`: Removes a control from the root child list
+- `containsControl()`: Gets a boolean indicating if the given control is in the root child list.
+- `removeControl()`: Removes a control from the root child list.
 
 ## Containers
 
@@ -243,6 +243,27 @@ text1.fontSize = 48;
 button.content = text1;  
 ```
 
+### MeshButton3D
+
+This class is used to to create an interactable object which will use a mesh coming from the current scene to render.
+
+```
+var pushButton = new BABYLON.GUI.MeshButton3D(mesh, "pushButton");
+```
+
+Once created, you can use the new MeshButton3D to add animations:
+
+```
+pushButton.pointerEnterAnimation = () => {
+   mesh.material.albedoColor = hoverColor;
+};
+pushButton.pointerOutAnimation = () => {
+    mesh.material.albedoColor = new BABYLON.Color3(0.5, 0.19, 0);
+};
+```
+
+You can find a complete demo here: https://www.babylonjs-playground.com/#8Y780Y#20
+
 ### Custom controls
 
 You can create your own custom control by inheriting from the `Control3D` class and implementing the following functions:
@@ -250,7 +271,10 @@ You can create your own custom control by inheriting from the `Control3D` class 
 - `_createNode()`: Called on controls to create a transform node or a mesh to represent the control
 - `_affectMaterial()`: Called on controls to prepare and affect a material if a mesh is used to represent the control
 
+## Further reading
 
+[How To Use Babylon GUI](/how_to/gui)  
+[How To Use the Selection Panel Helper](/how_to/selector)
 
 
 

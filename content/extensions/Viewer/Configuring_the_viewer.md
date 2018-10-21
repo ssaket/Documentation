@@ -19,6 +19,8 @@ The default configuration will be loaded per default, unless other configuration
 <babylon extends="minimal" model="https://playground.babylonjs.com/scenes/Rabbit.babylon"></babylon>
 ```
 
+To understand the default configuration in more detail and learn how to recreate it using HTML see [Recreating the default configuration for the viewer](/extensions/Recreating_the_default_configuration) 
+
 ## Extending and changing the default configurations
 
 The default configuration types can be overwritten using many methods described below. As the configuration object never contains Array, any attribute in it can be references using a string, and can therefore be overwritten. 
@@ -26,8 +28,8 @@ The default configuration types can be overwritten using many methods described 
 The order in which the configuration is loaded is :
 
 1. The DOM configuration
-1. The `extends` configuration (for example `default` or `minimal`). This is being merged with the DOM configuration, giving the DOM configuration priority
 1. (optional) The extra configuration file provided using the `configuration` keyword.
+1. The `extends` configuration (for example `default` or `minimal`). This is being merged with the DOM configuration, giving the DOM configuration priority
 
 To explain this further, let's look at a simple example:
 
@@ -151,12 +153,11 @@ Nested attributes can be separated using ".". So `scene.debug="true"` will nest 
 
 #### Unidirectional definition
 
-The DOM is read once, and is not being continuously processed, Changing a value of an attribute after the viewer was initialized will nto influence the viewer.
-*this behavior will be changed in future versions of the viewer.*
+The DOM is read once, and is not being continuously processed, Changing a value of an attribute after the viewer was initialized will not influence the viewer.
 
 ### Configuring using nested DOM elements
 
-Another way of using the DOM to configure the viewer is to use nester DOM elements inside the main element. A basic example:
+Another way of using the DOM to configure the viewer is to use nested DOM elements inside the main element. A basic example:
 
 ```html
 <babylon extends="minimal">
@@ -314,3 +315,12 @@ This will use the preregistered "form" mapper (which doesn't exist in reality - 
 
 Please check the configuration on github, as it is constantly updated:
 [https://github.com/BabylonJS/Babylon.js/blob/master/Viewer/src/configuration/configuration.ts](https://github.com/BabylonJS/Babylon.js/blob/master/Viewer/src/configuration/configuration.ts)
+
+# Further Reading
+
+* [The Babylon.js Viewer](/extensions/The_Babylon_Viewer)
+* [Configuring the viewer](/extensions/Configuring_the_viewer)
+* [The templating system](/extensions/The_templating_system)
+* [Recreating the default configuration for the viewer](/extensions/Recreating_the_default_configuration)
+* [Advanced usage](/extensions/Advanced_usage)
+* [Babylon.js viewer examples](/extensions/Viewer_examples)

@@ -101,7 +101,7 @@ This add-on use the standard Blender installation procedure:
 | Normals</br>![normals](img/exporters/blender/meshes/normals.png) | Auto Smooth is often use by Blender users, but is not supported.</br> Use an edge split modifier instead, see [tip](http://doc.babylonjs.com/exporters/blender_tips#smooth-shading). |
 | UV Maps</br>![uv-maps](img/exporters/blender/meshes/uv-maps.png) | <ul><li>UVMap: coordinatesIndex</li><li>limited to 2 channels</li></ul> |
 | Vertex Colors</br>![vertex-colors](img/exporters/blender/meshes/vertex-colors.png) | <ul><li>if multiples layers exist, they will be merge</li></ul> |
-| Exporter panel</br>![exporter-meshes-options](img/exporters/blender/meshes/exporter-meshes-options.png) |  |
+| Exporter panel</br>![exporter-meshes-options](img/exporters/blender/meshes/exporter-meshes-options.png) | <ul><li>**Tags**: allow using [scene.getMeshesByTags()](http://doc.babylonjs.com/api/classes/babylon.scene#getmeshesbytags)</li><li>**Materials**:<ul><li>**Name Space**: automatically add a suffix to the mesh materials. Default is Blender filename.</li></ul></li><li>**Procedural Textures / Cycles Baking**: texture baking settings when using procedural textures (Blender Render) or Cycles</li></ul> |
 
 ---
 
@@ -169,6 +169,8 @@ This add-on use the standard Blender installation procedure:
 ---
 
 ## Animation
+
+(*Note: this part is under construction. You can also check [this forum thread](http://www.html5gamedevs.com/topic/36596-blender-exporter-doc-needs-feedback/) where some informations are centralised before it is written here.*)
 
 ### Commons & Good practices
 

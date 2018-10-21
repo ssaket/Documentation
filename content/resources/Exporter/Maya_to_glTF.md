@@ -19,14 +19,24 @@ To export to a single .glb file, choose __glb__ as __Output format__.
 
 Since the plugin first exports to babylon then converts it to glTF, glTF features are a subset of the [babylon ones](/resources/Maya#features).
 
+* _Cameras_
+    * zfar
+    * znear
+    * yfov (Perspective camera)
+    * Position / rotation (from nodes)
+
 * _Meshes_
-    * Visibility
-    * Position / rotation / scaling
-    * Geometry (position, normal, tangent, texture coordinates (2 channels))
+    * Geometry: position, normal, color, texture coordinates (2 channels)
+    * Position / rotation / scaling (from nodes)
+    * Skin
+    * Instances
+    * Morph targets
+    * Animations: bones, morph weights
 
 * _Nodes_
     * Hierarchy
     * Position / rotation / scaling
+    * Animations: position, rotation, scaling
 
 * _Materials_
     * Standard materials (Lambert, Phong, PhongE and Blinn are converted to PBR, see below)
@@ -43,21 +53,13 @@ Since the plugin first exports to babylon then converts it to glTF, glTF feature
     * Multi-materials
 
 * _Textures_
-    * Wrap mode (clamp, mirror, repeat)
+    * Wrap mode (Clamp, mirror, repeat)
     * magFilter, minFilter
     * Image format conversion to jpg / png
 
-* _Cameras_
-    * zfar
-    * znear
-    * yfov (Perspective camera)
-    * Position / rotation
-
 # Conversion Standard to PBR materials
 
-The plugin uses core specifications of glTF, i.e. without any extension. This implies that only PBR materials are exported.
-
-To support compatibility with Maya Standard materials (Lambert, Phong, PhongE and Blinn), they are converted to PBR materials based on their color, specular, transparency and glossiness (specular power).
+Maya Standard materials (Lambert, Phong, PhongE and Blinn) are converted to PBR materials based on their color, specular, transparency and glossiness (specular power).
 
 [The complete algorithm is detailed here](https://github.com/bghgary/glTF/blob/gh-pages/convert-between-workflows-bjs/js/babylon.pbrUtilities.js)
 
@@ -75,7 +77,7 @@ Currently, two PBR materials are exported:
 
 # Stingray PBS
 
-Involved parameters are highlighted bellow and described in following sections.
+Involved parameters are highlighted bellow and described in the following sections.
 
 ![Maya Stingray PBS material parameters](/img/exporters/Maya_to_glTF/2_gltf_stingray_pbs.jpg)
 
@@ -157,7 +159,7 @@ Thus the emissive map is assumed to be already premultiplied by the emissive int
 
 # AiStandardSurface
 
-Involved parameters are highlighted bellow and described in following sections.
+Involved parameters are highlighted bellow and described in the following sections.
 
 ![glTF AiStandardSurface material parameters](/img/exporters/Maya_to_glTF/4_gltf_aiStandardSurface_material_editor.png)
 
@@ -290,6 +292,34 @@ To obtain such texture, either:
 ![glTF susbtance painter export window with ORM configuration](/img/exporters/Maya_to_glTF/SubstancePainterExportORM.png)
 
 Using _Unreal Engine 4 (Packed)_ configuration, the occlusion, roughness and metallic are combined together into a single ORM texture.
+
+## Draco compression
+
+On the export form, the _Use Draco compression_ option enables the Draco compression. It needs [Node.js](https://nodejs.org) and [gltf-pipeline](https://github.com/AnalyticalGraphicsInc/gltf-pipeline) in order to work.
+
+To install the Node.js, go to the web site download and install it.
+Then to install gltf-pipeline, open et normal shell (cmd.exe or powershell.exe) and run the following command `npm install -g gltf-pipeline`.
+Once they are installed, check the _Use Draco compression_ option and the compression will be automatically done at the export end.
+
+# How to export multiple animation clips to .gltf format
+
+You can export multiple animations clips and play one of them depending on the situation. For example, a character would have "Walk", "Run" and "Jump" animations, each spread along the timeline.
+
+To setup the animations clips (also named animation groups) click on the __Babylon__ tab on the top menu, and click on __Animation groups__.
+
+![Maya animation groups window](/img/exporters/Maya_to_glTF/animation_groups_window.jpg)
+
+Features are explained below:
+
+* Create / delete an animation group
+
+* Set a name
+
+* Set start and end frames. Values out of timeline bounds are automatically clamped at runtime.
+
+* __Export non-animated node targets__ option: when checked, nodes that are actually not animated (no key in the timeline) will have a fake scale animation exported. This option might be useful if you want to add an in-game behaviour to all the nodes of an animation group, like toggle visibilty.
+
+When updating an input field, changes are highlighted in red. Press the _Confirm_ button to submit changes.
 
 #  Try it out!  #
 

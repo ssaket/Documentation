@@ -47,7 +47,7 @@ var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("myU
 
 **Please note that only one fullscreen mode GUI is allowed per scene**
 
-The fullscreen mode is not intented to be used with WebVR as it is a pure 2d rendering. For WebVR scenario you will have to use the texture mode below.
+The fullscreen mode is not intended to be used with WebVR as it is a pure 2d rendering. For WebVR scenario you will have to use the texture mode below.
 
 * Texture mode: In this mode, BABYLON.GUI will be used as a texture for a given mesh. You will have to define the resolution of your texture. To create an AdvancedDynamicTexture in texture mode, just run this code:
 
@@ -199,6 +199,7 @@ shadowBlur|number|0|the amount of blur that is applied to the drop shadow
 shadowOffsetX|number|0|the offset of the shadow on the x axis
 shadowOffsetY|number|0|the offset of the shadow on the y axis
 shadowColor|string|"#000"|the color of the shadow
+hoverCursor|string|""|the cursor to use when mouse is over the control ([demo](https://www.babylonjs-playground.com/#XCPP9Y#588))
 
 Controls can be added directly to the AdvancedDynamicTexture or to a container with:
 
@@ -285,6 +286,7 @@ The control provides several observables to track its state:
 Observables|Comments
 -----------|--------
 onTextChangedObservable|Raised when the text has changed
+onBeforeKeyAddObservable|Raised just before the entered key is added to the text
 onFocusObservable|Raised when the control loses the focus
 onBlurObservable|Raised when the control gets the focus
 
@@ -297,6 +299,33 @@ Please note that the InputText has pretty limited edition support. Here are the 
 * Left / Right (used to move the cursor)
 
 Furthermore, please note that due to JavaScript platform limitation, the InputText cannot invoke the onscreen keyboard. On mobile, the InputText will use the `prompt()` command to get user input. You can define the title of the prompt by setting `control.promptMessage`.
+
+#### Using onBeforeKeyAddObservable for extended keyboard layouts and input masks
+
+The onBeforeKeyAddObservable observable can be used to extend or change how the InputText control accepts text. For example, it's possible to implement support for different keyboard layouts using this feature where some keys act as modifiers for the next entered key or you can implement an input mask which only accepts numerical keys.
+
+The observable is triggered just before a printable key will be added to the text in the control. The attached handler can then use the following methods to get information on the keyboard state and to modify how the key is handled within the control:
+
+Method|Description
+------|-----------
+currentKey|The key that will be appended to the text
+addKey|If true, the key in currentKey will be added to the text, otherwise it will be skipped
+deadKey|Set to true if the user hit the dead key on the keyboard. Handler must reset to false
+
+For example, if the handler wants to limit the control to only accept numerical keys, then it can set addKey to false if the value of currentKey is not numerical. The key will then not be added to the text. Similarly dead key support can be implemented by checking the deadKey flag and setting currentKey to the appropriate character for the dead key + key combination.
+
+Please note that the observable is only triggered by printable keys, that is, keys that can be added to the text, and not by control keys like backspace and enter.
+
+Here's an example showing two inputs, one which only accepts numerical keys and one which has simple dead key support: https://www.babylonjs-playground.com/#I1Y5YT#1
+
+### InputPassword
+
+The InputPassword is a control that shows the entered characters as bullets and is thus suited for entering passwords:
+https://www.babylonjs-playground.com/#UB58DY
+
+Otherwise it behaves the same as the InputText control and has the same properties as shown above.
+
+There are no configuration options available that are specific to this control. For example, it is not possible to show the entered plain text.
 
 ### Button
 
@@ -338,8 +367,14 @@ var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "textures/grass.png
 
 You can try it here:  https://www.babylonjs-playground.com/#XCPP9Y#28
 
+#### Accessing parts
+
+You can use the following properties to get button's parts (if available):
+* image: Returns the image part of the button (if any)
+* textBlock: Returns the image part of the button (if any)
+
 #### Visual animations
-By default a button will change its opacity on pointerover and will change it scale when clicked.
+By default a button will change its opacity on pointerOver and will change it scale when clicked.
 You can define your own animations with the following callbacks:
 
 * pointerEnterAnimation
@@ -351,7 +386,8 @@ You can define your own animations with the following callbacks:
 You can also create a complete custom button by manually adding children to the button. Here is how the ImageButton is built:
 
 ```
-var result = new Button(name);
+BABYLON.GUI.Button.CreateMyCustomButton = function(name, text, imageUrl){
+var result = new BABYLON.GUI.Button(name); 
 
 // Adding text
 var textBlock = new BABYLON.GUI.TextBlock(name + "_button", text);
@@ -368,6 +404,7 @@ iconImage.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
 result.addControl(iconImage);            
 
 return result;
+};
 ```  
 
 ### Checkbox
@@ -421,10 +458,33 @@ color|string|white|Foreground color
 background|string|black|Background color
 barOffset|valueAndUnit|5px|Offset used vertically to draw the background bar
 thumbWidth|valueAndUnit|30px|Width of the thumb
+displayThumb|boolean|true|Indicates if the thumb must be rendered (useful to simulate progress bar)
 isThumbCircle|boolean|false|Indicates if the thumb should be a circle (square if false)
 isThumbClamped|boolean|false|Indicates if the thumb should be clamped
+isVertical|boolean|false|Indicates that the slider will be rendered vertically instead of horizontally
+
+When using vertical slider, you have to make sure that height is bigger than width. The opposite has to be true when using `isVertical = false`.
 
 Here is an example of a slider: https://www.babylonjs-playground.com/#U9AC0N#1
+
+### ImageBasedSlider
+
+You can use an ImageBasedSlider to customize a slider using pictures. This control can be configured like the Slider)
+
+It is rendered using the following properties:
+
+Property|Type|Default|Comments
+--------|----|-------|--------
+backgroundImage|string|null|Path to the image to use for the background
+valueBarImage|string|null|Path to the image to use for the value bar
+thumbImage|string|null|Path to the image to use for the thumb
+barOffset|valueAndUnit|5px|Offset used vertically to draw the background bar
+thumbWidth|valueAndUnit|30px|Width of the thumb
+displayThumb|boolean|true|Indicates if the thumb must be rendered (useful to simulate progress bar)
+isThumbClamped|boolean|false|Indicates if the thumb should be clamped
+isVertical|boolean|false|Indicates that the slider will be rendered vertically instead of horizontally
+
+Here is an example of a sliders and image based sliders :https://www.babylonjs-playground.com/#HATGQZ
 
 ### Line
 
@@ -486,7 +546,8 @@ You may want to have the Image control adapt its size to the source image. To do
 You can change image source at any time with `image.source="myimage.jpg"`.
 
 You can also define which part of the source image you want to use with the following properties:
-* sourceLeft: x coordinate in the source image (in pixel)
+* sourceLeft: x coordinate in 
+the source image (in pixel)
 * sourceTop: y coordinate in the source image (in pixel)
 * sourceWidth: width of the source image you want to use (in pixel)
 * sourceHeight: height of the source image you want to use (in pixel)
@@ -513,6 +574,25 @@ size|string or number|"200px"|The size, width, and height property will always b
 
 
 Here is an example of a color picker: https://www.babylonjs-playground.com/#91I2RE#1
+
+### DisplayGrid
+
+The display grid control is a simple control used to display grids inside your GUI.
+
+The control is rendered using the following properties:
+
+Property|Type|Default|Comments
+--------|----|-------|--------
+background|string|"Black"|Defines the color of the grid background
+cellWidth|number|20|Defines the width of each cell
+cellHeight|number|20|Defines the height of each cell
+minorLineTickness|number|1|Defines the tickness of minor lines
+minorLineColor|string|"DarkGray"|Defines the color of the minor lines
+majorLineTickness|number|2|Defines the tickness of major lines
+majorLineColor|string|"White"|Defines the color of the major lines
+majorLineFrequency|number|5|Defines the frequency of major lines
+
+Here is an example of a display grid: https://www.babylonjs-playground.com/#747U9T
 
 ### VirtualKeyboard
 
@@ -588,6 +668,8 @@ You can find a complete demo here: https://www.babylonjs-playground.com/#S7L7FE
 The containers are controls used to host other controls. Use them to organize your UI.
 Containers has one specific property: `container.background`. Use it to define the background color of your container.
 
+By default containers do not block pointer events (ie. the underlying scene will receive the pointer event even if the pointer is over a container). You can prevent this behavior by calling `container.isPointerBlocker = true`.
+
 ### Adaptative size
 You can decide to have your containers to adapt their size to their children by using one of these properties:
 * adaptWidthToChildren (false by default)
@@ -595,6 +677,14 @@ You can decide to have your containers to adapt their size to their children by 
 
 If you set one of these properties to true, the associated dimension (width, height or both) will be computed based on direct children size as long as it is defined in pixel (size cannot be defined in percentage because this will generate an infinite loop as the child will need the parent size and the parent will need the child size)
 You can find a demo here: https://www.babylonjs-playground.com/#GL5SIM
+
+### Clipping
+By default containers will clip their children to their bounds. You can disable this option by calling this code:
+```
+container.clipChildren = false;
+```
+
+You can find a demo here: https://www.babylonjs-playground.com/#LBF8S2
 
 ### Rectangle
 The Rectangle is a rectangular container with the following properties:
@@ -618,7 +708,7 @@ Here is an example of an ellipse control: https://www.babylonjs-playground.com/#
 ### StackPanel
 
 The StackPanel is a control which stacks its children based on its orientation (can be horizontal or vertical).
-All children must have a defined width or height (depending on the orientation).
+All children must have a defined width or height (depending on the orientation) in **pixels**.
 
 The height (or width) of the StackPanel is defined automatically based on children.
 
@@ -671,10 +761,20 @@ You can update or delete columns and rows with the following functions:
 * removeRowDefinition(index): Remove a row definition at specified index
 * removeColumnDefinition(index): Remove a column definition at specified index
 
+Two properties can also help you getting rows and columns count:
+* rowCount: Will give you the number of rows
+* columnCount: Will give you the number of columns
+
 To add a control in a grid, you have to specify the row and column indexes:
 
 ```
 grid.addControl(control, 1, 2); // 2nd row, thrid column
+```
+
+You can get the list of controls in a specific cell by calling:
+
+```
+var controls = grid.getChildrenAt(2, 3);
 ```
 
 Here is an example of a Grid: https://www.babylonjs-playground.com/#KX33X8#1
@@ -686,7 +786,7 @@ Starting with Babylon.js v3.3, you can create a style object that will be used t
 ```
     var style = advancedTexture.createStyle();
     style.fontSize = 24;
-    style.fontStyle = "bold";
+    style.fontStyle = "italic";
     style.fontFamily = "Verdana";
 ```
 
@@ -712,3 +812,38 @@ You can find a demo here: https://www.babylonjs-playground.com/#5N4JIS
 To reduce the amount of code required to achieve frequent tasks you can use the following helpers:
 
 * `BABYLON.GUI.Control.AddHeader(control, text, size, options { isHorizontal, controlFirst })`: This function will create a StackPanel (horizontal or vertical based on options) and will add your control plus a TextBlock in it. Options can also be used to specify if the control is inserted first of after the header. Depending on the orientation, size will either specify the widht or the height used for the TextBlock.
+
+* `BABYLON.GUI.Checkbox.AddCheckBoxWithHeader(title, onValueChanged)`: This function will create a horizontal StackPanel and will add a checkbox alongside a text block displaying the `title` property. `onValueChanged` defines the callback to call when checkbox state changes.
+
+* `BABYLON.GUI.RadioButton.AddRadioButtonWithHeader(title, group, isChecked, onValueChanged)`: This function will create a horizontal StackPanel and will add a radio button (set with specified group and isChecked parameters) alongside a text block displaying the `title` property. `onValueChanged` defines the callback to call when radio button state changes.
+
+## GUI and postprocesses
+
+In order to not apply postprocesses to your GUI, you will have to use a multi-cameras approach: one for your main scene and one for your GUI.
+
+You can find an implementation example here: https://www.babylonjs-playground.com/#U9AC0N#58
+
+The key point is to use the camera.layerMask property to isolate your GUI:
+
+```
+var camera2 = new BABYLON.ArcRotateCamera("Camera", 0, 0.8, 100, BABYLON.Vector3.Zero(), scene);
+camera2.layerMask = 2;
+
+// GUI - simply set advancedTexture layerMask to 2
+var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+advancedTexture.layer.layerMask = 2;
+```
+
+Then all meshes of your main scene will have a different layerMask attached to main camera:
+```
+var camera1 = new BABYLON.ArcRotateCamera("Camera", 0, 0.8, 100, BABYLON.Vector3.Zero(), scene);
+camera1.layerMask = 1;
+
+myMesh.layerMask = 1;
+```
+
+
+## Further reading
+
+[How To Use the Selection Panel Helper](/how_to/selector)  
+[How To Use Babylon GUI3D](/how_to/gui3d)

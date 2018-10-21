@@ -29,3 +29,20 @@ An example on how to use the DOM to configure the viewer
 An example on how to load the viewer and use its observers using promises, observables and callbacks.
 
 [Live demo](https://viewer.babylonjs.com/eventsexample)
+
+## Animations example
+
+[https://github.com/BabylonJS/Babylon.js/blob/master/Viewer/dist/ufoExample.html](https://github.com/BabylonJS/Babylon.js/blob/master/Viewer/dist/ufoExample.html)
+
+An example of the animation system of the default viewer
+
+[Live demo](https://viewer.babylonjs.com/eventsexample)
+
+# Further Reading
+
+* [The Babylon.js Viewer](/extensions/The_Babylon_Viewer)
+* [Configuring the viewer](/extensions/Configuring_the_viewer)
+* [The templating system](/extensions/The_templating_system)
+* [Recreating the default configuration for the viewer](/extensions/Recreating_the_default_configuration)
+* [Advanced usage](/extensions/Advanced_usage)
+* [Babylon.js viewer examples](/extensions/Viewer_examples)

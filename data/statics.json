@@ -115,11 +115,11 @@
             "desc": "Making the most of the playground",
             "files": [
                 {
-                    "title": "Display and Use the Debug Layer",
+                    "title": "Display and Use the Inspector",
                     "filename": "debug_layer"
                 },
                 {
-                    "title": "Customize The Debug Layer",
+                    "title": "Customize The Inspector",
                     "filename": "Customize_debug_layer"
                 }
             ]
@@ -129,6 +129,16 @@
             "name": "scene",
             "desc": "The Scene",
             "files": [
+                {
+                    "title": "Fast Build a World",
+                    "level": 1,
+                    "filename": "Fast_Build"
+                },
+                {
+                    "title": "Interact with a Scene",
+                    "level": 1,
+                    "filename": "Interactions"
+                },
                 {
                     "title": "Use Multiple Scenes",
                     "level": 1,
@@ -168,6 +178,16 @@
                     "title": "Render a Scene to a PNG",
                     "level": 3,
                     "filename": "Render_Scene_on_a_PNG"
+                },
+                {
+                    "title": "Render a Scene to a Video",
+                    "level": 3,
+                    "filename": "Render_Scene_on_a_Video"
+                },
+                {
+                    "title": "Use clip planes",
+                    "level": 3,
+                    "filename": "Clip_Planes"
                 }
             ]
         },
@@ -285,6 +305,21 @@
                     "title": "Use Translations and Rotations",
                     "level": 3,
                     "filename": "Rotate"
+                },
+                {
+                    "title": "Use Mesh Behaviors (eg. dragging)",
+                    "level": 3,
+                    "filename": "MeshBehavior"
+                },
+                {
+                    "title": "Use UtilityLayerRenderer",
+                    "level": 3,
+                    "filename": "UtilityLayerRenderer"
+                },
+                {
+                    "title": "Use Gizmos (eg. Drag arrow, Bounding box)",
+                    "level": 3,
+                    "filename": "Gizmo"
                 },
                 {
                     "title": "Set and Use a Pivot",
@@ -495,6 +530,11 @@
                     "filename": "Animate"
                 },
                 {
+                    "title": "Use the Particle Helper",
+                    "level": 1,
+                    "filename": "ParticleHelper"
+                },                
+                {
                     "title": "Use Sub Emitters",
                     "level": 1,
                     "filename": "Sub_Emitters"
@@ -545,11 +585,6 @@
                     "title": "Use Lens Flares",
                     "level": 3,
                     "filename": "How_to_use_Lens_Flares"
-                },
-                {
-                    "title": "How to use Reflection Probes",
-                    "level": 3,
-                    "filename": "How_to_use_Reflection_probes"
                 },
                 {
                     "title": "How to use Reflection Probes",
@@ -666,6 +701,11 @@
                     "title": "Use depth-of-field and other lens effects",
                     "level": 3,
                     "filename": "Using_depth-of-field_and_other_lens_effects"
+                },
+                {
+                    "title": "Use motion blur post-process",
+                    "level": 3,
+                    "filename": "Using_MotionBlurPostProcess"
                 }
             ]
         },
@@ -718,6 +758,10 @@
                     "filename": "Gui"
                 },
                 {
+                    "title": "Use the Selection Panel Helper",
+                    "filename": "Selector"
+                },
+                {
                     "title": "Use the Babylon 3D GUI",
                     "filename": "Gui3D"
                 }
@@ -735,6 +779,10 @@
                 {
                     "title": "Follow Approved Naming Conventions",
                     "filename": "Approved_Naming_Conventions"
+                },
+                {
+                    "title": "Use the Playground for Development",
+                    "filename": "use_playground"
                 },
                 {
                     "title": "Create a Material for the Materials Library",
@@ -825,48 +873,40 @@
             "desc": "Learn how to use the official editor",
             "files": [
                 {
-                    "title": "Introduction",
-                    "filename": "Introduction"
-                },
-                {
                     "title": "Getting Started",
                     "filename": "Getting_Started"
                 },
                 {
-                    "title": "Managing Animations",
-                    "filename": "Managing_Animations"
+                    "title": "Loading and Saving Scenes",
+                    "filename": "Loading_Saving"
                 },
                 {
-                    "title": "Creating Cinematic",
-                    "filename": "Creating_Cinematic"
+                    "title": "Adding Textures",
+                    "filename": "Adding_Textures"
                 },
                 {
-                    "title": "Creating Particle Systems",
-                    "filename": "Creating_Particle_Systems"
+                    "title": "Adding Materials",
+                    "filename": "Adding_Materials"
                 },
                 {
-                    "title": "Creating Materials",
-                    "filename": "Creating_Materials"
+                    "title": "Using The Assets Panel",
+                    "filename": "Using_Assets_Panel"
                 },
                 {
-                    "title": "Managing Materials",
-                    "filename": "Managing_Materials"
+                    "title": "Writing Custom Scripts",
+                    "filename": "Custom_Scripts"
                 },
                 {
-                    "title": "Managing Lens Flare Systems",
-                    "filename": "Managin_Lens_Flare_Systems"
+                    "title": "Adding Animations",
+                    "filename": "Adding_Animations"
                 },
                 {
-                    "title": "Using the Actions Builder",
-                    "filename": "Using_Actions_Builder"
+                    "title": "Using Path Finder",
+                    "filename": "Using_PathFinder"
                 },
                 {
-                    "title": "Using the Post-Process Builder (for developers)",
-                    "filename": "Using_Post_Processes_Builder"
-                },
-                {
-                    "title": "Using the Materials Builder (for developers)",
-                    "filename": "Using_Materials_Builder"
+                    "title": "Creating Prefabs",
+                    "filename": "Creating_Prefabs"
                 }
             ]
         },
@@ -890,6 +930,10 @@
                 {
                     "title": "How to use Babylon.js in a Facebook Instant Game",
                     "filename": "BabylonJS_and_Instant_Games"
+                },
+                {
+                    "title": "How to combine Babylon.js and Pixi.js",
+                    "filename": "BabylonJS_and_PixiJS"
                 }
             ]
         },
@@ -898,6 +942,10 @@
             "name": "Exporter",
             "desc": "Applications that can Export files for BJS",
             "files": [
+                {
+                    "title": "Save Your Scene",
+                    "filename": "Save_Babylon"
+                },
                 {
                     "title": "3DSMax",
                     "filename": "3DSMax"
@@ -1051,13 +1099,21 @@
             ]
         },
         {
-            "title": "PG Aspects",
+            "title": "Playground",
             "name": "Playground_aspects",
             "desc": "Aspects of Playground Use",
             "files": [
                 {
                     "title": "Available Textures in the Playground",
                     "filename": "Playground_Textures"
+                },
+                {
+                    "title": "Available Meshes to Import",
+                    "filename": "meshes_to_load"
+                },
+                {
+                    "title": "Using External Assets",
+                    "filename": "External_PG_assets"
                 },
                 {
                     "title": "Playground Based Tutorials",
@@ -1272,6 +1328,18 @@
             ]
         },
         {
+            "title": "Mesh Writer",
+            "name": "Mesh_Writer",
+            "img": "img/How_To/meshwriter.png",
+            "desc": "How to generate text with meshes",
+            "files": [
+                {
+                    "title": "Mesh Writer Introduction",
+                    "filename": "Mesh_Writer_Introduction"
+                }
+            ]
+        },
+        {
             "title": "Cloner System",
             "name": "ClonerSystem",
             "img": "images/matrixCloner.jpg",
@@ -1392,13 +1460,13 @@
             ]
         },
         {
-            "title": "Babylon Viewer",
+            "title": "Babylon.js Viewer",
             "name": "Viewer",
             "img": "img/extensions/editor.png",
-            "desc": "Learn how to use the babylon viewer.",
+            "desc": "Learn how to use the Babylon.js viewer.",
             "files": [
                 {
-                    "title": "The Babylon Viewer",
+                    "title": "The Babylon.js Viewer",
                     "filename": "The_Babylon_Viewer"
                 },
                 {
@@ -1408,6 +1476,10 @@
                 {
                     "title": "The viewer templating system",
                     "filename": "The_templating_system"
+                },
+                {
+                    "title": "Recreating the default configuration for the viewer",
+                    "filename": "Recreating_the_default_configuration"
                 },
                 {
                     "title": "Advanced usage",
@@ -1427,6 +1499,17 @@
                 {
                     "title": "glTF Exporter",
                     "filename": "glTFExporter"
+                }
+            ]
+        },
+        {
+            "title": "Azure Media Player 360 Video",
+            "name": "Amp360Video",
+            "desc": "Watch 360 Videos in Azure Media Player",
+            "files": [
+                {
+                    "title": "Amp 360 Video",
+                    "filename": "Amp360Video"
                 }
             ]
         }
@@ -1467,6 +1550,11 @@
                     "title": "Developing Build a House from a Floorplan",
                     "level": 2,
                     "filename": "House"
+                },
+                {
+                    "title": "Adding a Roof",
+                    "level": 2,
+                    "filename": "roof"
                 },
                 {
                     "title": "Making a Simple Driven Car",
@@ -1528,6 +1616,10 @@
                 {
                     "title": "Arc Between Vectors",
                     "filename": "Sector"
+                },
+                {
+                    "title": "Mesh Surface Area",
+                    "filename": "area"
                 },
                 {
                     "title": "Display Path3D Curve",
@@ -1628,7 +1720,7 @@
                     "filename": "Playground"
                 },
                 {
-                    "title": "The Debug Layer",
+                    "title": "The Inspector",
                     "filename": "Playground_debuglayer"
                 }
             ]

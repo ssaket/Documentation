@@ -30,6 +30,10 @@ Congratulations! You did it!
     * Visibility
     * Position / rotation / scaling
     * Geometry (position, normal, tangent, texture coordinates (2 channels))
+    * Skin
+    * Instances
+    * Morph targets (blend shapes)
+    * Animations: Position, scaling, rotation, bones, morph weights
 
 * _Materials_
     * Standard materials (Lambert, Phong, PhongE and Blinn)
@@ -59,13 +63,16 @@ Congratulations! You did it!
     * MaxZ
     * Position
     * Target / Rotation
+    * Animations: Position, Target / Rotation
 
 * _Lights_
     * Point / spot / directional / ambient
+    * Inclusion / exclusion lists
     * Position / direction
     * Intensity
     * Diffuse
     * Specular
+    * Animations: Position, direction
 
 ## The exporter window 
 
@@ -87,6 +94,12 @@ The log panel indicates in real time which mesh has been exported, which materia
 Option _Optimize vertices_: The Babylon exporter will try to optimize the number of vertices to export instead of exporting everything naively (if a vertex is part of two faces, this vertex won’t be exported twice with this option checked).
 
 The _Scale factor_ can be used to rescale the whole world. If you set a scale factor equal to 100, the resulting scene will be 100 times smaller (1%). By default the scale factor is equal to 1, meaning no rescale.
+
+The _Texture quality_ sets the convertion quality of bitmap to JPEG. At 100 (the maximum value), it gives the highest image quality but no file size reduction. On the contrary at 0 (the minimum value), it gives the lowest image quality but the greatest file size reduction. By default the _Texture quality_ is set to 100.
+
+The _Use Draco comression_ option is only available for gltf and glb output format. More detail [here](/resources/Maya_to_glTF#draco-compression).
+
+In the _MorphTarget options_ section, the _Export normal_ and _Export tangent_ checkboxes allow you to customize the morph target export.
 
 # What you should know
 

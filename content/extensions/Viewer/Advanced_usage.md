@@ -10,7 +10,7 @@ Babylon's mesh importer is using the file extension of the model you provided in
 To do that, use the `model.loader` configuration variable:
 
 ```html
-<babylon extends="minimal" model,url="https://example.com/Rabbit" model.loader=".gltf"></babylon>
+<babylon extends="minimal" model.url="https://example.com/Rabbit" model.loader=".gltf"></babylon>
 ```
 
 This will load <https://example.com/Rabbit> using the glTF loader.
@@ -71,9 +71,9 @@ To get them, simply get the viewer (any way you see fit, as previously discussed
 
 ```javascript
 let viewer = getMeMyViewer();
-viewer.scene instanceOf BABYLON.Scene; // true
+viewer.sceneManager.scene instanceOf BABYLON.Scene; // true
 viewer.engine instanceOf BABYLON.Engine; // true
-viewer.camera instanceOf BABYLON.ArcRotateCamera; // true
+viewer.sceneManager.camera instanceOf BABYLON.ArcRotateCamera; // true
 ```
 
 ## Event-based development
@@ -112,7 +112,7 @@ viewer.onSceneInitObservable.add(DelayPromise(500));
 
 This will print 'done' and then continue loading the model.
 
-If we would simple use setTimeout and return, setTimeout would have async-executed, and the 'done' would have been logged 500 ms after the model started loading.
+If we would simply use setTimeout and return, setTimeout would have async-executed, and the 'done' would have been logged 500 ms after the model started loading.
 
 The registered function doesn't have to be a promise. If registering a simple function, it will still work and execute correctly:
 
@@ -124,9 +124,9 @@ viewer.onSceneInitObservable.add(function(scene) {
 });
 ```
 
-## Enabling the debug layer
+## Enabling the Inspector
 
-To enable the debug layer, simply add scene.debug="true" to your html tag:
+To enable the Inspector, add scene.debug="true" to your html tag:
 
 ```html
 <babylon extends="minimal" scene.debug="true" model="https://playground.babylonjs.com/scenes/Rabbit.babylon"></babylon>
@@ -167,7 +167,7 @@ BabylonViewer.viewerManager.getViewerPromiseById('babylon-viewer').then(function
 });
 ```
 
-The `loadModel` function will return a Promise<Scene> that is thenable when the model was fully loaded. Helpful when you want to tell the user the model loaded successfully :
+The `loadModel` function will return a Promise<ViewerModel> that is thenable when the model was fully loaded. Helpful when you want to tell the user the model loaded successfully :
 
 ```javascript
 viewer.loadModel({
@@ -175,9 +175,18 @@ viewer.loadModel({
     subtitle: "BabylonJS",
     thumbnail: "https://www.babylonjs.com/img/favicon/apple-icon-144x144.png",
     url: "https://www.babylonjs.com/Assets/DamagedHelmet/glTF/DamagedHelmet.gltf"
-}).then(scene => {
+}).then(model => {
     console.log("model loaded!");
 }).catch(error => {
     console.log("error loading the model!", error);
 });
 ```
+
+# Further Reading
+
+* [The Babylon.js Viewer](/extensions/The_Babylon_Viewer)
+* [Configuring the viewer](/extensions/Configuring_the_viewer)
+* [The templating system](/extensions/The_templating_system)
+* [Recreating the default configuration for the viewer](/extensions/Recreating_the_default_configuration)
+* [Advanced usage](/extensions/Advanced_usage)
+* [Babylon.js viewer examples](/extensions/Viewer_examples)
